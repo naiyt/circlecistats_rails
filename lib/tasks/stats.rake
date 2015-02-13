@@ -2,6 +2,7 @@ namespace :stats do
   desc 'Runs stats for the past 30 builds'
   task :run => :environment do
     CircleCIStats.run_stats
+    count = 0
     CircleCIStats.builds.each do |build|
 
       # Just a temporary hack to not dupe builds until we get it working w/webhooks
@@ -21,7 +22,9 @@ namespace :stats do
           author_name: build.author_name,
           canceled: build.canceled
         )
+        count += 1
       end
     end
+    puts "Added #{count} new builds"
   end
 end
