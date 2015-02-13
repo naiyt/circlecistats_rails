@@ -1,5 +1,7 @@
 <h1><a href="https://github.com/naiyt/circlecistats_rails">CircleCI Stats</a>, version 0.0.1</h1>
 
+<h2>TODO: Filter by dates and branches, graph change over time</h2>
+
 <h2>Average build time: <%= @average %> minutes, over <%= @builds.length %> builds</h2>
 <h2>Average master: <%= @master_average %> minutes</h2>
 <h2>Average success: <%= @average_success %></h2>
@@ -23,8 +25,9 @@
 
 <h3>Averages by branch:</h3>
 
-<ul>
-<% @stats_by_branch.each do |branch, average| %>
-  <li>Branch: <%= branch %>, Average: <%= average %></li>
-<% end %>
-<ul>
+<table>
+	<tr><th>Branch</th><th>Average</th></tr>
+	<% @stats_by_branch.each do |branch, average| %>
+		<tr><td><%= branch %></td><td><%= average %></td></tr>
+	<% end %>
+</table>
