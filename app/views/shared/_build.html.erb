@@ -1,0 +1,8 @@
+
+<ul>
+  <li>Branch: <%= build.branch %></li>
+  <li>Time: <%= build.to_seconds %></li>
+  <li><a href="<%= build.build_url %>">CircleCI URL</a></li>
+  <li>Build date: <%= build.commit_date %></li>
+  <li>Outcome: <%= build.outcome %></li>
+</ul>
