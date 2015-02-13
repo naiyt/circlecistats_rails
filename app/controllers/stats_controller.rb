@@ -13,11 +13,15 @@ class StatsController < ApplicationController
 
   def set_stats
     @average = average
-    @maximum = maximum
+    @maximum = Build.success.ordered_by_time.first
+    @minimum = Build.success.ordered_by_time.last
     @successes = Build.num_success
     @failures = Build.num_failure
     @cancels = Build.num_canceled
     @stats_by_branch = by_branch
+    @master_average = average(Build.master)
+    @average_success = average(Build.success)
+    @average_failure = average(Build.failure)
   end
 
   # TODO - Rails generator in CircleCIStats gem to create the model, allow these to be computed inside the gem?
@@ -25,10 +29,6 @@ class StatsController < ApplicationController
     builds = Build.with_times if builds.nil?
     times = builds.map { |build| build.to_seconds }
     (times.inject(:+) / times.length).round(2)
-  end
-
-  def maximum
-    Build.ordered_by_time.first
   end
 
   def by_branch

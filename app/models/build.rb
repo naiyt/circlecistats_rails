@@ -5,6 +5,7 @@ class Build < ActiveRecord::Base
   scope :success, lambda { where(:outcome => "success") }
   scope :failure, lambda { where(:outcome => "failed") }
   scope :canceled, lambda { where(:outcome => "canceled") }
+  scope :master, lambda { where(:branch => "master") }
 
   def self.num_success
     success.count

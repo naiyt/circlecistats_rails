@@ -1,10 +1,17 @@
 <h1><a href="https://github.com/naiyt/circlecistats_rails">CircleCI Stats</a>, version 0.0.1</h1>
 
-<h3>Average build time: <%= @average %> minutes, over <%= @builds.length %> builds</h3>
+<h2>Average build time: <%= @average %> minutes, over <%= @builds.length %> builds</h2>
+<h2>Average master: <%= @master_average %> minutes</h2>
+<h2>Average success: <%= @average_success %></h2>
+<h2>Average failures: <%= @average_failure %></h2>
 
-<h3>Longest build time:</h3>
+<h3>Longest succesful build time:</h3>
 
 <%= render "shared/build", :build => @maximum %>
+
+<h3>Shortest succesful build time:</h3>
+
+<%= render "shared/build", :build => @minimum %>
 
 <h3>Other stats:</h3>
 
