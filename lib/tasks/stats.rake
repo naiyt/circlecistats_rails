@@ -6,7 +6,7 @@ namespace :stats do
     CircleCIStats.builds.each do |build|
 
       # Just a temporary hack to not dupe builds until we get it working w/webhooks
-      unless Build.exists?(:build_num => build.build_num) || build.outcome != 'success' || build.outcome != 'failed'
+      unless Build.exists?(:build_num => build.build_num) || build.outcome.nil?
         build = Build.create!(
           build_time: build.build_time_millis,
           commit_date: build.committer_date,
