@@ -14,7 +14,10 @@ class StatsController < ApplicationController
   def set_stats
     @average = average
     @maximum = maximum
-    p @maximum
+    @successes = Build.num_success
+    @failures = Build.num_failure
+    @cancels = Build.num_canceled
+    @stats_by_branch = by_branch
   end
 
   # TODO - Rails generator in CircleCIStats gem to create the model, allow these to be computed inside the gem?
@@ -26,6 +29,15 @@ class StatsController < ApplicationController
 
   def maximum
     Build.ordered_by_time.first
+  end
+
+  def by_branch
+    all = Build.with_times.group_by(&:branch)
+    averages = {}
+    all.each do |branch, builds|
+      averages[branch] = average(builds)
+    end
+    averages.sort_by {|_key, value| value}
   end
 
   def to_seconds(ms)
