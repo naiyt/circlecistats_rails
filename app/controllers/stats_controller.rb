@@ -19,9 +19,9 @@ class StatsController < ApplicationController
     @failures = Build.num_failure
     @cancels = Build.num_canceled
     @stats_by_branch = by_branch
-    @master_average = average(Build.master)
-    @average_success = average(Build.success)
-    @average_failure = average(Build.failure)
+    @master_average = average(Build.with_times.master)
+    @average_success = average(Build.with_times.success)
+    @average_failure = average(Build.with_times.failure)
   end
 
   # TODO - Rails generator in CircleCIStats gem to create the model, allow these to be computed inside the gem?
